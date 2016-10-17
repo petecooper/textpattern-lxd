@@ -1,0 +1,234 @@
+Return-Path: <jessica.kearns@canonical.com>
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+	 by sloti33d2t13 (Cyrus 3.0.0-beta3-git-fastmail-13653) with LMTPA;
+	 Thu, 22 Sep 2016 06:43:06 -0400
+X-Cyrus-Session-Id: sloti33d2t13-2814921-1474540986-2-8289738425089313459
+X-Sieve: CMU Sieve 2.4
+X-Spam-known-sender: no ("Email failed DMARC policy for domain")
+X-Spam-score: 0.0
+X-Spam-hits: BAYES_00 -1.9, HTML_MESSAGE 0.001, RCVD_IN_DNSWL_NONE -0.0001,
+  RCVD_IN_SORBS_SPAM 0.5, LANGUAGES en, BAYES_USED global,
+  SA_VERSION 3.3.2
+X-Spam-source: IP='74.125.82.41', Host='mail-wm0-f41.google.com', Country='US',
+  FromHeader='com', MailFrom='com'
+X-Spam-charsets: plain='utf-8', html='utf-8'
+X-IgnoreVaction: yes ("Email failed DMARC policy for domain")
+X-Resolved-to: pete@pragmatika.net
+X-Delivered-to: pete@pragmatika.net
+X-Mail-from: jessica.kearns@canonical.com
+Received: from mx2 ([10.202.2.201])
+  by compute1.internal (LMTPProxy); Thu, 22 Sep 2016 06:43:06 -0400
+Received: from mx2.messagingengine.com (localhost [127.0.0.1])
+	by mailmx.nyi.internal (Postfix) with ESMTP id 3B9B1DE60C
+	for <pete@pragmatika.net>; Thu, 22 Sep 2016 06:43:06 -0400 (EDT)
+Received: from mx2.messagingengine.com (localhost [127.0.0.1])
+    by mx2.messagingengine.com (Authentication Milter) with ESMTP
+    id 5C4F2DD26F8;
+    Thu, 22 Sep 2016 06:43:06 -0400
+Authentication-Results: mx2.messagingengine.com;
+    dkim=pass (2048-bit rsa key) header.d=canonical-com.20150623.gappssmtp.com header.i=@canonical-com.20150623.gappssmtp.com header.b=mi4GzWXA;
+    dmarc=fail (p=none) header.from=canonical.com;
+    spf=none smtp.mailfrom=jessica.kearns@canonical.com smtp.helo=mail-wm0-f41.google.com;
+    x-google-dkim=pass (2048-bit rsa key) header.d=1e100.net header.i=@1e100.net header.b=GbYOdtPn
+Received-SPF: none
+    (canonical.com: No applicable sender policy available)
+    receiver=mx2.messagingengine.com;
+    identity=mailfrom;
+    envelope-from="jessica.kearns@canonical.com";
+    helo=mail-wm0-f41.google.com;
+    client-ip=74.125.82.41
+Received: from mail-wm0-f41.google.com (mail-wm0-f41.google.com [74.125.82.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by mx2.messagingengine.com (Postfix) with ESMTPS
+	for <pete@pragmatika.net>; Thu, 22 Sep 2016 06:43:05 -0400 (EDT)
+Received: by mail-wm0-f41.google.com with SMTP id w84so244958710wmg.1
+        for <pete@pragmatika.net>; Thu, 22 Sep 2016 03:43:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=canonical-com.20150623.gappssmtp.com; s=20150623;
+        h=to:from:subject:message-id:date:user-agent:mime-version;
+        bh=l4B7tVF+GpFBmfokKqDpNUUe+osOSFNZjbkxnb7bHUM=;
+        b=mi4GzWXAy2062qZH4LYS78aamVkAE7ZvwbmSursC7+fHQqQ2v4i/DpgOShH645yB+x
+         o1NvEDYcrFT6DhT5FRVAvCPIm+c2Jx7o/woMv3LegKaFZPu/ZVr2wLWRKB9RnDhMaCY+
+         s84YoOh4t7B2vyWjMkn2GTkoUUWlXBcE7PUljFHT8im0YWQ1RKcatoEMCT8VNbPTUYO1
+         4KyxC/H74rc0unm9NRcxy4FmqSmgoke/FCo1bMgM1duuXnma5EH6RFH5vlhsMI2bWADB
+         wNAZX8H3s8T5GfH7XiWXLyNQcQGY36oLi1ncSAWp/eDSNjHQuUZMtGn376oXOSVs6XAj
+         SJRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20130820;
+        h=x-gm-message-state:to:from:subject:message-id:date:user-agent
+         :mime-version;
+        bh=l4B7tVF+GpFBmfokKqDpNUUe+osOSFNZjbkxnb7bHUM=;
+        b=GbYOdtPnQi4t5p9rCo/X/G7hQIT19XUrPjXJO6ochyDjghYkgjZQ3AF2egwN3WGiUx
+         jeYJv6JDzKeb2apCqqqrbKC2AvCMIgVpuWFhvgt+3+mavYd+WrbiEf/PV/v6/cJvnuyB
+         Yf17r6Aw76zdXsWe6pC3xUqEnLP06dyw0CyyOmeps7OYGDMh5X/0qDs9MyqmAZT2kG54
+         Ya+fc8AuATUaGsUoZzQK3i2ss7J0OPGSMf+mCGQhr7ujOK2+g2f60WatNBYZgrCLuZio
+         pleQKAMMVxuCfc+X18JiNnmhZSj5TgKN7eI6YoXxOwZDUMbOoTXXFtA7m7mOGaeB6ONA
+         CQfg==
+X-Gm-Message-State: AE9vXwOFO8Zde1xfj1Xyjxm0ak/A8OJgAiageHtkOIRvs9rnUo4l6Ef/tngJFSGvDgdNB97Z
+X-Received: by 10.194.243.10 with SMTP id wu10mr1380340wjc.130.1474540983655;
+        Thu, 22 Sep 2016 03:43:03 -0700 (PDT)
+Received: from ?IPv6:2001:67c:1560:a003:980d:ee59:7151:26ff? ([2001:67c:1560:a003:980d:ee59:7151:26ff])
+        by smtp.gmail.com with ESMTPSA id w71sm1843418wmw.17.2016.09.22.03.43.02
+        for <pete@pragmatika.net>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 22 Sep 2016 03:43:03 -0700 (PDT)
+To: pete@pragmatika.net
+From: Jessica Kearns <jessica.kearns@canonical.com>
+Subject: TM-2089
+Message-ID: <35eb8add-04f9-08a1-b690-b7b3d5949752@canonical.com>
+Date: Thu, 22 Sep 2016 11:43:02 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101
+ Thunderbird/45.2.0
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="------------682A7631333B25E555AEDA72"
+
+This is a multi-part message in MIME format.
+--------------682A7631333B25E555AEDA72
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+To Pete
+
+
+Thanks for getting in touch.
+
+
+------------------------------
+
+
+Your request:
+
+
+I'm writing shell scripts and documentation to containerise Textpattern 
+CMS [1] inside Ubuntu LXD at a GitHub repository [2].
+
+I wish to confirm appropriate use of the term `lxd` in the repository 
+URL and also to refer to LXD as the technology within the shell scripts.
+
+I would be grateful if you could advise what attribution is required, 
+and licence my use if appropriate. Thank you in advance.
+
+
+[1] http://textpattern.com
+[2] https://github.com/petecooper/textpattern-lxd
+
+------------------------------
+
+
+We are looking into this and will be in touch shortly.  Thank you for 
+your support of Ubuntu.
+
+
+Kind regards
+
+Jessica
+
+
+
+-- 
+Jessica Kearns
+Legal Advisor
+Canonical
+Blue Fin Building, 5th Floor
+110 Southwark Street, SE1 0SU
+Direct Dial: +44 (0)20 7630 2417
+Ubuntu - Linux for Human Beings
+www.canonical.com
+
+
+--------------682A7631333B25E555AEDA72
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <p>
+      <meta charset="utf-8">
+    </p>
+    <p dir="ltr"
+      style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"
+      id="docs-internal-guid-f6c27c2b-517a-526c-82dd-a1f9bf136be2"><span
+style="font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;">To
+        Pete</span><span
+style="font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:#ffff00;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;"></span></p>
+    <br>
+    <p dir="ltr"
+      style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span
+style="font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;">Thanks
+        for getting in touch.</span></p>
+    <br>
+    <p dir="ltr"
+      style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span
+style="font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;">------------------------------</span></p>
+    <br>
+    <p dir="ltr"
+      style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span
+style="font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;">Your
+        request: <br>
+      </span></p>
+    <p dir="ltr"
+      style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span
+style="font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;"><br>
+      </span></p>
+    I'm writing shell scripts and documentation to containerise
+    Textpattern CMS [1] inside Ubuntu LXD at a GitHub repository [2].<br>
+    <br>
+    I wish to confirm appropriate use of the term `lxd` in the
+    repository URL and also to refer to LXD as the technology within the
+    shell scripts.<br>
+    <br>
+    I would be grateful if you could advise what attribution is
+    required, and licence my use if appropriate. Thank you in advance.<br>
+    <br>
+    <br>
+    [1] <a href="http://textpattern.com" target="_blank">http://textpattern.com</a><br>
+    [2] <a href="https://github.com/petecooper/textpattern-lxd"
+      target="_blank">https://github.com/petecooper/textpattern-lxd</a>
+    <p dir="ltr"
+      style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span
+style="font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;">------------------------------</span></p>
+    <br>
+    <p dir="ltr"
+      style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;text-align:
+      justify;"><span
+style="font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;">We
+        are looking into this and will be in touch shortly.  Thank you
+        for your support of Ubuntu. <br>
+      </span></p>
+    <p dir="ltr"
+      style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;text-align:
+      justify;"><span
+style="font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;"><br>
+      </span></p>
+    <p dir="ltr"
+      style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;text-align:
+      justify;"><span
+style="font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;">Kind
+        regards</span></p>
+    <p dir="ltr"
+      style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;text-align:
+      justify;"><span
+style="font-size:14.666666666666666px;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;">Jessica
+        <br>
+      </span></p>
+    <br clear="all">
+    <br>
+    <pre class="moz-signature" cols="72">-- 
+Jessica Kearns
+Legal Advisor
+Canonical
+Blue Fin Building, 5th Floor
+110 Southwark Street, SE1 0SU
+Direct Dial: +44 (0)20 7630 2417
+Ubuntu - Linux for Human Beings
+<a class="moz-txt-link-abbreviated" href="http://www.canonical.com">www.canonical.com</a></pre>
+  </body>
+</html>
+
+--------------682A7631333B25E555AEDA72--
